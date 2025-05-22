@@ -59,3 +59,13 @@ app.get('/getData', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+app.get('/dumpData', async (req, res) => {
+  try {
+    const content = await fs.readFile(FILE, 'utf-8');
+    res.setHeader("Content-Type", "application/json");
+    res.send(content);
+  } catch (err) {
+    res.status(500).send({ error: "Cannot read data.txt" });
+  }
+});
